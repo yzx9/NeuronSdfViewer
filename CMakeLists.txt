@@ -7,12 +7,14 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${neuron_sdf_viewer_SOURCE_DIR}/bin)
 set(SOURCES
 	# sources
 	src/main.cpp
-	src/Object.hpp
 	src/Rasterizer.cpp src/Rasterizer.hpp
 	src/Ray.cpp src/Ray.hpp
 	src/Scene.cpp src/Scene.hpp
 	src/Viewer.cpp src/Viewer.hpp
-	src/SdfSphere.cpp src/SdfSphere.hpp)
+	src/object/Object.hpp
+	src/object/SdfSphere.cpp src/object/SdfSphere.hpp
+	src/object/SdfObject.cpp src/object/SdfObject.hpp
+	src/swc/SwcLoader.hpp src/swc/SwcLoader.cpp)
 
 # Executable
 add_executable(main ${SOURCES})

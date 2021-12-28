@@ -3,19 +3,6 @@
 
 constexpr auto TITLE = "Neuron SDF Viewer";
 
-void Viewer::initWindow() {
-    glfwInit();
-
-    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-    window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, nullptr, nullptr);
-}
-
-void Viewer::initVulkan() {
-    createInstance();
-}
-
 void Viewer::run() {
     initWindow();
     initVulkan();
@@ -29,6 +16,19 @@ void Viewer::mainLoop() {
     }
 }
 
+void Viewer::initWindow() {
+    glfwInit();
+
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
+    glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
+    window = glfwCreateWindow(WIDTH, HEIGHT, TITLE, nullptr, nullptr);
+}
+
+void Viewer::initVulkan() {
+    createInstance();
+}
+
 void Viewer::cleanup() {
     vkDestroyInstance(instance, nullptr);
 
@@ -40,7 +40,7 @@ void Viewer::cleanup() {
 void Viewer::createInstance() {
     VkApplicationInfo appInfo = {};
     appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-    appInfo.pApplicationName = "Hello Triangle";
+    appInfo.pApplicationName = TITLE;
     appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
     appInfo.pEngineName = "No Engine";
     appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
@@ -58,7 +58,7 @@ void Viewer::createInstance() {
 
     createInfo.enabledLayerCount = 0;
 
-    if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
+    if (vkCreateInstance(&createInfo, nullptr, &instance) != VkResult::VK_SUCCESS) {
         throw std::runtime_error("failed to create instance!");
     }
 }
