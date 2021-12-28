@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 #include <Eigen/Dense>
-#include "object/Object.hpp"
+#include "../object/Object.hpp"
 
 class Scene
 {

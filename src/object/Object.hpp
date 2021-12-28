@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Ray.hpp"
+#include "../render/Ray.hpp"
 
 class Object
 {

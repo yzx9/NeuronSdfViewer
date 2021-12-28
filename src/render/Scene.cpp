@@ -7,6 +7,7 @@ Scene::Scene(int width, int height)
 
 void Scene::add(std::unique_ptr<Object> obj)
 {
+    objects.emplace_back(std::move(obj));
 }
 
 Eigen::Vector3f Scene::cast_ray(std::unique_ptr<Object> obj)

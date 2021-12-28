@@ -1,6 +1,6 @@
 #include "SdfSphere.hpp"
 
-SdfSphere::SdfSphere(Eigen::Vector3f&& center, float radis)
+SdfSphere::SdfSphere(Eigen::Vector3f center, float radis)
 	: center(center), radis(radis)
 {
 }
