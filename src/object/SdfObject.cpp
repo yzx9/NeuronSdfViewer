@@ -2,7 +2,7 @@
 #include "SdfObject.hpp"
 
 // TODO[pref]: 调整尝试次数
-constexpr auto max_try_matching = 10;
+constexpr auto max_try_matching = 100;
 
 /// <summary>
 /// Ray Matching Algorithm

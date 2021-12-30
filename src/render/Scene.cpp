@@ -1,16 +1,17 @@
 #include "Scene.hpp"
 
-Scene::Scene(int width, int height)
-    : height(height), width(width), objects()
-{
-}
-
 void Scene::add(std::unique_ptr<Object> obj)
 {
     objects.emplace_back(std::move(obj));
 }
 
-Eigen::Vector3f Scene::cast_ray(std::unique_ptr<Object> obj)
+Eigen::Vector3f Scene::cast_ray(Ray ray) const
 {
+    for (auto& obj : objects) {
+        if (obj->intesect_ray(ray)) {
+            return { 1.0f, 1.0f, 1.0f };
+        }
+    }
+
     return { 0.0f, 0.0f, 0.0f };
 }

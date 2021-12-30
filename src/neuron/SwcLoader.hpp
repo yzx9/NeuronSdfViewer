@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <vector>
 #include <memory>
@@ -5,5 +7,5 @@
 
 class SwcLoader {
 public:
-	static std::vector<std::unique_ptr<SdfObject>> load(std::string filepath);
+	static std::vector<std::unique_ptr<SdfObject>> load(const std::string& filepath);
 };
