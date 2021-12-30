@@ -1,4 +1,7 @@
 #include <limits>
+#include <vector>
+#include <future>
+#include <Eigen/Dense>
 #include "Render.hpp"
 #include "Scene.hpp"
 
@@ -10,20 +13,32 @@ Render::Render(int width, int height)
 
 void Render::draw(const Scene &scene)
 {
+    auto calcPixel = [&](auto offsetX, auto offsetY) {
+        auto x = (static_cast<float>(offsetX) / width) * 2 - 1;
+        auto y = (static_cast<float>(offsetY) / height) * 2 - 1;
+
+        Ray ray({ x, y, -1 }, { 0, 0, 1 });
+        auto color = scene.cast_ray(ray);
+
+        constexpr auto max = std::numeric_limits<uint8_t>::max();
+        return Eigen::Matrix<uint8_t, 3, 1> {
+            static_cast<uint8_t>(max * color[0]),
+            static_cast<uint8_t>(max * color[1]),
+            static_cast<uint8_t>(max * color[2])
+        };
+    };
+
+    std::vector<std::future<Eigen::Matrix<uint8_t, 3, 1>>> futures;
+    futures.reserve(size);
     for (auto i = 0; i < height; i++) {
-        auto y = (static_cast<float>(i) / height) * 2 - 1;
-
         for (auto j = 0; j < width; j++) {
-            auto x = (static_cast<float>(j) / width) * 2 - 1;
-
-            Ray ray({ x, y, -1 }, { 0, 0, 1 });
-            auto color = scene.cast_ray(ray);
-            color_buffer[i * width + j] = {
-                static_cast<uint8_t>(std::numeric_limits<uint8_t>::max() * color[0]),
-                static_cast<uint8_t>(std::numeric_limits<uint8_t>::max() * color[1]),
-                static_cast<uint8_t>(std::numeric_limits<uint8_t>::max() * color[2])
-            };
+            std::future<Eigen::Matrix<uint8_t, 3, 1>> fut = std::async(calcPixel, j, i);
+            futures.emplace_back(std::move(fut));
         }
+    }
+
+    for (int m = 0; m < size; m++) {
+        color_buffer[m] = futures[m].get();
     }
 }
 
