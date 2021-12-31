@@ -1,5 +1,4 @@
 #pragma once
-
 #include <Eigen/Dense>
 #include "Object.hpp"
 #include "../Ray.hpp"

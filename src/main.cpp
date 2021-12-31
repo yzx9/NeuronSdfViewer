@@ -15,7 +15,7 @@ int main()
     NeuronScene scene;
     scene.load("");
 
-    OrthographicCamera camera(-width / 2, width / 2, height / 2, -height / 2, -1, 1);
+    OrthographicCamera camera(-width / 2, width / 2, height / 2, -height / 2, 0.5, 2000);
 
     Render render(width, height);
     render.draw(scene, camera);

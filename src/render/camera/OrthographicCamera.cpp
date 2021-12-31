@@ -10,8 +10,8 @@ OrthographicCamera::OrthographicCamera(float left, float right, float top, float
 Ray OrthographicCamera::generate_primary_ray(float x, float y) const
 {
 	Eigen::Vector3f origin{
-		(right - left) * (1 + x) * 0.5 + left,
-		(top - bottom) * (1 + y) * 0.5 + bottom,
+		(right - left) * (1 + x) * 0.5f + left,
+		(top - bottom) * (1 + y) * 0.5f + bottom,
 		near
 	};
 	auto dir = (far - near) > 0 ? 1.0f : -1.0f;

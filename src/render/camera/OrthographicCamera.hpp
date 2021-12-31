@@ -5,7 +5,13 @@
 
 class OrthographicCamera : public Camera {
 public:
-	OrthographicCamera(float left, float right, float top, float bottom, float near, float far);
+	OrthographicCamera(
+		float left,
+		float right,
+		float top,
+		float bottom,
+		float n,
+		float f);
 
 	Ray generate_primary_ray(float x, float y) const override;
 

@@ -1,5 +1,4 @@
 #pragma once
-
 #include "../Ray.hpp"
 
 class Object

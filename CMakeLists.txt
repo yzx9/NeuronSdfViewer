@@ -17,8 +17,9 @@ set(SOURCES
     src/render/Scene.cpp        src/render/Scene.hpp
     
     # camera
-    src/render/camera/Camera.hpp
-    src/render/camera/OrthographicCamera.cpp   src/render/camera/OrthographicCamera.hpp
+    src/render/camera/Camera.cpp                src/render/camera/Camera.hpp
+    src/render/camera/OrthographicCamera.cpp    src/render/camera/OrthographicCamera.hpp
+    src/render/camera/PerspectiveCamera.cpp     src/render/camera/PerspectiveCamera.hpp
 
     # object
     src/render/object/Object.hpp
