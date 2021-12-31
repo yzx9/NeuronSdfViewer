@@ -8,5 +8,6 @@ objects SwcLoader::load(const std::string& filepath)
 {
 	objects objs;
 	objs.emplace_back(std::make_unique<SdfSphere>(Eigen::Vector3f(0, 0, 200.0f), 100.0f));
+	objs.emplace_back(std::make_unique<SdfSphere>(Eigen::Vector3f(150.0f, 0, 100.0f), 40.0f));
 	return objs;
 }
