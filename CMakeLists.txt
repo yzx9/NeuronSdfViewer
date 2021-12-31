@@ -3,11 +3,14 @@ project(neuron_sdf_viewer)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -Wall")
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${neuron_sdf_viewer_SOURCE_DIR}/bin)
+
 set(SOURCES
     src/main.cpp
 
     # neuron
+    src/neuron/SwcPoint.hpp     src/neuron/SwcPoint.cpp
     src/neuron/SwcLoader.cpp    src/neuron/SwcLoader.hpp
     src/neuron/NeuronScene.cpp  src/neuron/NeuronScene.hpp
 
@@ -28,7 +31,7 @@ set(SOURCES
 )
 
 # Executable
-add_executable(main ${SOURCES})
+add_executable(main ${SOURCES} "src/neuron/SwcPoint.cpp")
 
 # Eigen3
 find_package (Eigen3 REQUIRED)

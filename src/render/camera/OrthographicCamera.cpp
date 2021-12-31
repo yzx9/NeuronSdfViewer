@@ -14,6 +14,6 @@ Ray OrthographicCamera::generate_primary_ray(float x, float y) const
 		(top - bottom) * (1 + y) * 0.5f + bottom,
 		near
 	};
-	auto dir = (far - near) > 0 ? 1.0f : -1.0f;
-	return Ray(origin, { 0, 0, dir });
+	auto sign = (far - near) > 0 ? 1.0f : -1.0f;
+	return Ray(origin, { 0, 0, sign }, std::abs(far - near));
 }

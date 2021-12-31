@@ -4,7 +4,7 @@
 #include <Eigen/Dense>
 #include "SdfCombinedObject.hpp"
 
-class SdfCombinedObject : SdfObject
+class SdfCombinedObject : public SdfObject
 {
 public:
 	float sdf(const Eigen::Vector3f& position) const;
