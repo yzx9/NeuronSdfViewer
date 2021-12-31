@@ -6,11 +6,10 @@
 
 class SdfSphere : public SdfObject {
 public:
-	SdfSphere(Eigen::Vector3f center, float radis);
+	SdfSphere(Eigen::Vector3f position, float radis) : SdfObject(position);
 
 	float sdf(const Eigen::Vector3f& position) const override;
 
 private:
-	Eigen::Vector3f center;
 	float radis;
 };

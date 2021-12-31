@@ -22,8 +22,8 @@ set(SOURCES
 
     # object
     src/render/object/Object.hpp
-    src/render/object/SdfSphere.cpp    src/render/object/SdfSphere.hpp
-    src/render/object/SdfObject.cpp    src/render/object/SdfObject.hpp
+    src/render/object/SdfObject.cpp src/render/object/SdfObject.hpp
+    src/render/object/SdfSphere.cpp src/render/object/SdfSphere.hpp
 )
 
 # Executable

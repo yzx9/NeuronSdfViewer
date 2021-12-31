@@ -1,3 +1,4 @@
+#include <math.h>
 #include "OrthographicCamera.hpp"
 
 OrthographicCamera::OrthographicCamera(float left, float right, float top, float bottom, float near, float far)
@@ -8,5 +9,11 @@ OrthographicCamera::OrthographicCamera(float left, float right, float top, float
 
 Ray OrthographicCamera::generate_primary_ray(float x, float y) const
 {
-	return Ray({ x, y, -1 }, { 0, 0, 1 });
+	Eigen::Vector3f origin{
+		(right - left) * (1 + x) * 0.5 + left,
+		(top - bottom) * (1 + y) * 0.5 + bottom,
+		near
+	};
+	auto dir = (far - near) > 0 ? 1.0f : -1.0f;
+	return Ray(origin, { 0, 0, dir });
 }

@@ -4,6 +4,8 @@
 // TODO[pref]: 调整尝试次数
 constexpr auto max_try_matching = 100;
 
+SdfObject::SdfObject(Eigen::Vector3f position) : Object(position) {};
+
 /// <summary>
 /// Ray Matching Algorithm
 /// </summary>
