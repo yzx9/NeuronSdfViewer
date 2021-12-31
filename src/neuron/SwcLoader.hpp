@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "../object/SdfObject.hpp"
+#include "../render/object/SdfObject.hpp"
 
 class SwcLoader {
 public:

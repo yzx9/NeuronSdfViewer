@@ -1,6 +1,6 @@
 #include <Eigen/Dense>
 #include "SwcLoader.hpp"
-#include "../object/SdfSphere.hpp"
+#include "../render/object/SdfSphere.hpp"
 
 using objects = std::vector<std::unique_ptr<SdfObject>>;
 

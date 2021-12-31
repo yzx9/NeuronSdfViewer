@@ -4,7 +4,7 @@
 #include <vector>
 #include <Eigen/Dense>
 #include "Ray.hpp"
-#include "../object/Object.hpp"
+#include "object/Object.hpp"
 
 class Scene
 {

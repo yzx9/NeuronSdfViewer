@@ -10,16 +10,20 @@ set(SOURCES
     # neuron
     src/neuron/SwcLoader.cpp    src/neuron/SwcLoader.hpp
     src/neuron/NeuronScene.cpp  src/neuron/NeuronScene.hpp
-    
-    # object
-    src/object/Object.hpp
-    src/object/SdfSphere.cpp    src/object/SdfSphere.hpp
-    src/object/SdfObject.cpp    src/object/SdfObject.hpp
 
     # render
     src/render/Render.cpp       src/render/Render.hpp
     src/render/Ray.cpp          src/render/Ray.hpp
     src/render/Scene.cpp        src/render/Scene.hpp
+    
+    # camera
+    src/render/camera/Camera.hpp
+    src/render/camera/OrthographicCamera.cpp   src/render/camera/OrthographicCamera.hpp
+
+    # object
+    src/render/object/Object.hpp
+    src/render/object/SdfSphere.cpp    src/render/object/SdfSphere.hpp
+    src/render/object/SdfObject.cpp    src/render/object/SdfObject.hpp
 )
 
 # Executable

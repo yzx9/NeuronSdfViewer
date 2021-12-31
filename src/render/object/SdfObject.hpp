@@ -2,7 +2,7 @@
 
 #include <Eigen/Dense>
 #include "Object.hpp"
-#include "../render/Ray.hpp"
+#include "../Ray.hpp"
 
 class SdfObject : public Object {
 public:

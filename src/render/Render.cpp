@@ -4,6 +4,7 @@
 #include <Eigen/Dense>
 #include "Render.hpp"
 #include "Scene.hpp"
+#include "camera/Camera.hpp"
 
 Render::Render(int width, int height)
     : width(width), height(height), size(width * height)
@@ -11,13 +12,13 @@ Render::Render(int width, int height)
     color_buffer.resize(size);
 }
 
-void Render::draw(const Scene &scene)
+void Render::draw(const Scene &scene, const Camera &camera)
 {
     auto calcPixel = [&](auto offsetX, auto offsetY) {
         auto x = (static_cast<float>(offsetX) / width) * 2 - 1;
         auto y = (static_cast<float>(offsetY) / height) * 2 - 1;
 
-        Ray ray({ x, y, -1 }, { 0, 0, 1 });
+        auto ray = camera.generate_primary_ray(x, y);
         auto color = scene.cast_ray(ray);
 
         constexpr auto max = std::numeric_limits<uint8_t>::max();
