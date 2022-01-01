@@ -13,22 +13,33 @@ Ray::Ray(Eigen::Vector3f origin, Eigen::Vector3f direction, float tMax)
 {
 }
 
+const Eigen::Vector3f& Ray::get_origin() const
+{
+    return origin;
+}
+
+const Eigen::Vector3f& Ray::get_direction() const
+{
+    return direction;
+}
+
 Eigen::Vector3f Ray::operator()(float t) const
 {
     return origin + direction * t;
 }
 
-void Ray::set_t_max(float t_max)
-{
-    this->tMax = t_max;
-}
-
-bool Ray::is_valid()
+bool Ray::is_valid() const
 {
     return tMax == floatInfinity || tMax > 0;
 }
 
-bool Ray::is_valid(float t)
+bool Ray::is_valid(float t) const
 {
     return tMax == floatInfinity || tMax - t > std::numeric_limits<float>::epsilon();
+}
+
+
+void Ray::set_t_max(float t_max)
+{
+    this->tMax = t_max;
 }

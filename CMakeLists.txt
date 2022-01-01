@@ -28,7 +28,10 @@ set(SOURCES
     src/render/object/Object.hpp
     src/render/object/SdfObject.cpp src/render/object/SdfObject.hpp
     src/render/object/SdfSphere.cpp src/render/object/SdfSphere.hpp
-)
+
+    # accelerate
+    src/render/accelerate/Bound3.hpp    src/render/accelerate/Bound3.cpp
+ "src/render/accelerate/Bound3Intersect.hpp" "src/render/accelerate/Bound3Intersect.cpp")
 
 # Executable
 add_executable(main ${SOURCES} "src/neuron/SwcPoint.cpp")

@@ -1,3 +1,4 @@
+#include <stdexcept>
 #include <vector>
 #include <memory>
 #include <math.h>
@@ -20,4 +21,22 @@ float SdfCombinedObject::sdf(const Eigen::Vector3f& position) const
 void SdfCombinedObject::add(std::unique_ptr<SdfObject> object)
 {
 	objects.emplace_back(std::move(object));
+}
+
+Bound3 SdfCombinedObject::get_bound3() const
+{
+	const size = objects.size();
+	if (size == 0) {
+		throw std::runtime_error("Build bound3 befor add any object");
+	}
+	else if (size == 1) {
+		return objects[0]->get_bound3();
+	}
+	else {
+		auto bound3 = objects[0]->get_bound3();
+		for (int i = 1; i < size; i++) {
+			bound3 = Bound3::union_bound3(bound3, objects[i]->get_bound3());
+		}
+		return bound3;
+	}
 }

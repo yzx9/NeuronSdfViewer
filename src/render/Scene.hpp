@@ -1,5 +1,4 @@
 #pragma once
-
 #include <memory>
 #include <vector>
 #include <Eigen/Dense>
@@ -13,5 +12,5 @@ public:
     Eigen::Vector3f cast_ray(Ray ray) const;
 
 private:
-    std::vector<std::unique_ptr<Object>> objects;
+    std::vector<std::tuple<std::unique_ptr<Object>, Bound3>> objects;
 };
