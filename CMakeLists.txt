@@ -10,7 +10,7 @@ set(SOURCES
     src/main.cpp
 
     # neuron
-    src/neuron/SwcPoint.hpp     src/neuron/SwcPoint.cpp
+    src/neuron/SwcPoint.cpp     src/neuron/SwcPoint.hpp
     src/neuron/SwcLoader.cpp    src/neuron/SwcLoader.hpp
     src/neuron/NeuronScene.cpp  src/neuron/NeuronScene.hpp
 
@@ -30,17 +30,23 @@ set(SOURCES
     src/render/object/SdfSphere.cpp src/render/object/SdfSphere.hpp
 
     # accelerate
-    src/render/accelerate/Bound3.hpp    src/render/accelerate/Bound3.cpp
- "src/render/accelerate/Bound3Intersect.hpp" "src/render/accelerate/Bound3Intersect.cpp")
+    src/render/accelerate/Bound3.hpp            src/render/accelerate/Bound3.cpp
+    src/render/accelerate/Bound3Intersect.hpp   src/render/accelerate/Bound3Intersect.cpp
+)
 
 # Executable
-add_executable(main ${SOURCES} "src/neuron/SwcPoint.cpp")
+add_executable(NueronSdfViewer ${SOURCES})
+
+# Threads
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(NueronSdfViewer Threads::Threads)
 
 # Eigen3
 find_package (Eigen3 REQUIRED)
-target_link_libraries(main Eigen3::Eigen)
+target_link_libraries(NueronSdfViewer Eigen3::Eigen)
 
 # OpenCV
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
-target_link_libraries(main ${OpenCV_LIBS})
+target_link_libraries(NueronSdfViewer ${OpenCV_LIBS})
