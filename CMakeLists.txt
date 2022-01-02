@@ -3,7 +3,13 @@ project(neuron_sdf_viewer)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -Wall")
+
+if(MSVC)
+    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -Wall")
+else()
+    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -Wall")
+endif()
+
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${neuron_sdf_viewer_SOURCE_DIR}/bin)
 
 set(SOURCES
@@ -37,11 +43,6 @@ set(SOURCES
 # Executable
 add_executable(NueronSdfViewer ${SOURCES})
 
-# Threads
-set(THREADS_PREFER_PTHREAD_FLAG ON)
-find_package(Threads REQUIRED)
-target_link_libraries(NueronSdfViewer Threads::Threads)
-
 # Eigen3
 find_package (Eigen3 REQUIRED)
 target_link_libraries(NueronSdfViewer Eigen3::Eigen)
@@ -50,3 +51,10 @@ target_link_libraries(NueronSdfViewer Eigen3::Eigen)
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
 target_link_libraries(NueronSdfViewer ${OpenCV_LIBS})
+
+# Threads
+if(LINUX)
+    set(THREADS_PREFER_PTHREAD_FLAG ON)
+    find_package(Threads REQUIRED)
+    target_link_libraries(NueronSdfViewer Threads::Threads)
+endif()
