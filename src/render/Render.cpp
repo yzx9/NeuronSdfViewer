@@ -43,7 +43,7 @@ void Render::draw(const Scene &scene, const Camera &camera)
     }
 }
 
-ColorBuffer& Render::get_frame_buffer()
+ColorBuffer& Render::get_frame_buffer() noexcept
 {
     return color_buffer;
 }

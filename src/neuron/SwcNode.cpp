@@ -1,5 +1,5 @@
 #include <regex>
-#include "SwcPoint.hpp"
+#include "SwcNode.hpp"
 
 constexpr auto pattern =
 "\\s*"
@@ -13,18 +13,21 @@ constexpr auto pattern =
 
 std::regex regex(pattern);
 
-bool SwcPoint::try_parse(const std::string& s, SwcPoint& out) {
+bool SwcNode::try_parse(const std::string& s, std::shared_ptr<SwcNode>& out) {
     std::smatch match;
     if (!std::regex_match(s, match, regex)) {
         return false;
     }
 
-    out.id = std::stoi(match[1]);
-    out.type = std::stoi(match[2]);
-    out.x = std::stof(match[3]);
-    out.y = std::stof(match[4]);
-    out.z = std::stof(match[5]);
-    out.raidus = std::stof(match[6]);
-    out.parent = std::stoi(match[7]);
+    out = std::make_shared<SwcNode>();
+    out->id = std::stoi(match[1]);
+    out->type = std::stoi(match[2]);
+    out->x = std::stof(match[3]);
+    out->y = std::stof(match[4]);
+    out->z = std::stof(match[5]);
+    out->raidus = std::stof(match[6]);
+    out->parent = std::stoi(match[7]);
+    out->child = nullptr;
+    out->next = nullptr;
     return true;
 }

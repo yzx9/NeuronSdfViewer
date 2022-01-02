@@ -16,7 +16,7 @@ set(SOURCES
     src/main.cpp
 
     # neuron
-    src/neuron/SwcPoint.cpp     src/neuron/SwcPoint.hpp
+    src/neuron/SwcNode.cpp      src/neuron/SwcNode.hpp
     src/neuron/SwcLoader.cpp    src/neuron/SwcLoader.hpp
     src/neuron/NeuronScene.cpp  src/neuron/NeuronScene.hpp
 

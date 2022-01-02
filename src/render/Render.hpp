@@ -12,7 +12,7 @@ class Render
 public:
     Render(int width, int height);
     void draw(const Scene &scene, const Camera &camera);
-    ColorBuffer& get_frame_buffer();
+    ColorBuffer& get_frame_buffer() noexcept;
 
 private:
     int width;
