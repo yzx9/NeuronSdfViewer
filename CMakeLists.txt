@@ -53,8 +53,10 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 target_link_libraries(NueronSdfViewer ${OpenCV_LIBS})
 
 # Threads
-if(LINUX)
+if(WIN32)
+    set(CMAKE_USE_WIN32_THREADS_INIT ON)
+else()
     set(THREADS_PREFER_PTHREAD_FLAG ON)
-    find_package(Threads REQUIRED)
-    target_link_libraries(NueronSdfViewer Threads::Threads)
 endif()
+find_package(Threads REQUIRED)
+target_link_libraries(NueronSdfViewer Threads::Threads)
