@@ -16,22 +16,7 @@ void NeuronScene::load(std::string filepath)
     addSwcTree(root, nullptr);
 }
 
-void addSwcTree(auto &add, const std::shared_ptr<SwcNode> &parent, const std::shared_ptr<SwcNode> &root)
-{
-    if (!root)
-        return;
-
-    auto roundCone = std::make_unique<SdfRoundCone>(Eigen::Vector3f(root->x, root->y, root->z), root->raidus);
-    add(std::move(roundCone));
-
-    if (root->next)
-        addSwcTree(add, parent, root->next);
-
-    if (root->child)
-        addSwcTree(add, root, root->child);
-}
-
-void NeuronScene::addSwcTree(const std::shared_ptr<SwcNode> &root, const std::shared_ptr<SwcNode> &parent)
+void NeuronScene::addSwcTree(const std::unique_ptr<SwcNode> &root, const std::unique_ptr<SwcNode> &parent)
 {
     if (parent)
     {

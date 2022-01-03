@@ -8,5 +8,5 @@ public:
     void load(std::string filepath);
 
 private:
-    void addSwcTree(const std::shared_ptr<SwcNode> &root, const std::shared_ptr<SwcNode> &parent);
+    void addSwcTree(const std::unique_ptr<SwcNode> &root, const std::unique_ptr<SwcNode> &parent);
 };

@@ -2,24 +2,26 @@
 #include "SwcNode.hpp"
 
 constexpr auto pattern =
-"\\s*"
-"(\\d+)\\s"                 // index
-"(\\d+)\\s"                 // type
-"(-?\\d*(?:\\.\\d+)?)\\s"   // x
-"(-?\\d*(?:\\.\\d+)?)\\s"   // y
-"(-?\\d*(?:\\.\\d+)?)\\s"   // z
-"(-?\\d*(?:\\.\\d+)?)\\s"   // radius
-"(-1|\\d+)\\s*";            // parent
+    "\\s*"
+    "(\\d+)\\s"               // index
+    "(\\d+)\\s"               // type
+    "(-?\\d*(?:\\.\\d+)?)\\s" // x
+    "(-?\\d*(?:\\.\\d+)?)\\s" // y
+    "(-?\\d*(?:\\.\\d+)?)\\s" // z
+    "(-?\\d*(?:\\.\\d+)?)\\s" // radius
+    "(-1|\\d+)\\s*";          // parent
 
 std::regex regex(pattern);
 
-bool SwcNode::try_parse(const std::string& s, std::shared_ptr<SwcNode>& out) {
+bool SwcNode::try_parse(const std::string &s, std::unique_ptr<SwcNode> &out)
+{
     std::smatch match;
-    if (!std::regex_match(s, match, regex)) {
+    if (!std::regex_match(s, match, regex))
+    {
         return false;
     }
 
-    out = std::make_shared<SwcNode>();
+    out = std::make_unique<SwcNode>();
     out->id = std::stoi(match[1]);
     out->type = std::stoi(match[2]);
     out->x = std::stof(match[3]);

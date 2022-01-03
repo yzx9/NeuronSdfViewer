@@ -4,7 +4,8 @@
 #include <memory>
 #include "SwcNode.hpp"
 
-class SwcLoader {
+class SwcLoader
+{
 public:
-	static std::shared_ptr<SwcNode> load(const std::string& filepath);
+    static std::unique_ptr<SwcNode> load(const std::string &filepath);
 };
