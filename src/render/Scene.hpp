@@ -4,6 +4,7 @@
 #include <Eigen/Dense>
 #include "Ray.hpp"
 #include "object/Object.hpp"
+#include "accelerate/Bound3.hpp"
 
 class Scene
 {
@@ -12,5 +13,5 @@ public:
     Eigen::Vector3f cast_ray(Ray ray) const;
 
 private:
-    std::vector<std::tuple<std::unique_ptr<Object>, Bound3>> objects;
+    std::vector<std::tuple<std::unique_ptr<Object>, std::unique_ptr<Bound3>>> objects;
 };

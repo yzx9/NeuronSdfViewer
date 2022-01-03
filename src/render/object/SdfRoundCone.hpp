@@ -9,7 +9,7 @@ public:
 
     float sdf(const Eigen::Vector3f &position) const override;
 
-    Bound3 get_bound3() const override;
+    std::unique_ptr<Bound3> build_bound3() const override;
 
 private:
     Eigen::Vector3f a;

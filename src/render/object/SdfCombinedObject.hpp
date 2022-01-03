@@ -9,12 +9,12 @@
 class SdfCombinedObject : public SdfObject
 {
 public:
-	float sdf(const Eigen::Vector3f& position) const;
+    float sdf(const Eigen::Vector3f &position) const;
 
-	void add(std::unique_ptr<SdfObject> object);
+    void add(std::unique_ptr<SdfObject> object);
 
-	Bound3 get_bound3() const override;
+    std::unique_ptr<Bound3> build_bound3() const override;
 
 protected:
-	std::vector<std::unique_ptr<SdfObject>> objects;
+    std::vector<std::unique_ptr<SdfObject>> objects;
 };
