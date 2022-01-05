@@ -1,31 +1,24 @@
 ﻿#include <chrono>
+#include <string>
 #include <stdlib.h>
 #include <iostream>
 #include <exception>
-#include <Eigen/Dense>
+#include <functional>
 #include <opencv2/opencv.hpp>
-#include "render/Render.hpp"
-#include "render/camera/OrthographicCamera.hpp"
-#include "neuron/NeuronScene.hpp"
+#include "neuron/NeuronViewer.hpp"
 
-constexpr auto title = "neuron-sdf-viewer";
-constexpr auto width = 620;
-constexpr auto height = 480;
-
-constexpr auto model = "../assets/228-1-NBSS.CNG.swc";
-
-void renderImage();
-void printClockInfo(std::chrono::nanoseconds nanoseconds) noexcept;
+void runWithClockInfo(const std::string& title, std::function<void()> task);
 
 int main()
 {
     try
     {
-        auto start = std::chrono::steady_clock::now();
-        renderImage();
-        auto stop = std::chrono::steady_clock::now();
+        constexpr auto model = "../assets/228-1-NBSS.CNG.swc";
+        NeuronViewer viewer(model);
+        runWithClockInfo("Build BVH", [&] { viewer.build_bvh(); });
+        runWithClockInfo("Render", [&] { viewer.render_image(); });
 
-        printClockInfo(stop - start);
+        viewer.show_image();
         cv::waitKey(0);
         return EXIT_SUCCESS;
     }
@@ -36,24 +29,13 @@ int main()
     }
 }
 
-void renderImage()
+void runWithClockInfo(const std::string &title, std::function<void()> task)
 {
-    NeuronScene scene;
-    scene.load(model);
-    scene.build_bvh();
+    auto start = std::chrono::steady_clock::now();
+    task();
+    auto stop = std::chrono::steady_clock::now();
+    auto nanoseconds = stop - start;
 
-    OrthographicCamera camera(-width / 2, width / 2, height / 2, -height / 2, 0.5, 2000);
-
-    Render render(width, height);
-    render.draw(scene, camera);
-
-    auto &colorBuffer = render.get_frame_buffer();
-    cv::Mat img(height, width, CV_8UC3, colorBuffer.data());
-    cv::imshow(title, img);
-}
-
-void printClockInfo(std::chrono::nanoseconds nanoseconds) noexcept
-{
     auto hours = std::chrono::duration_cast<std::chrono::hours>(nanoseconds);
     nanoseconds -= hours;
 
@@ -65,9 +47,10 @@ void printClockInfo(std::chrono::nanoseconds nanoseconds) noexcept
 
     auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(nanoseconds);
 
-    std::cout << "Render complete: " << std::endl
+    std::cout << title << " complete: " << std::endl
               << "Time taken: " << std::setw(4) << hours.count() << " hours, " << std::endl
               << "            " << std::setw(4) << minutes.count() << " minutes, " << std::endl
               << "            " << std::setw(4) << seconds.count() << " seconds, " << std::endl
-              << "            " << std::setw(4) << milliseconds.count() << " milliseconds." << std::endl;
+              << "            " << std::setw(4) << milliseconds.count() << " milliseconds." << std::endl
+              << std::endl;
 }
