@@ -13,8 +13,12 @@ public:
 
     static std::unique_ptr<Bound3> union_bound3(const std::unique_ptr<Bound3> &box1, const std::unique_ptr<Bound3> &box2);
 
-private:
-    Eigen::Vector3f min;
+    const Eigen::Vector3f& min();
 
-    Eigen::Vector3f max;
+    const Eigen::Vector3f& max();
+
+private:
+    Eigen::Vector3f _min;
+
+    Eigen::Vector3f _max;
 };

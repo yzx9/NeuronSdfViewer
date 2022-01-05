@@ -39,6 +39,7 @@ set(SOURCES
     # accelerate
     src/render/accelerate/Bound3.hpp            src/render/accelerate/Bound3.cpp
     src/render/accelerate/Bound3Intersect.hpp   src/render/accelerate/Bound3Intersect.cpp
+    src/render/accelerate/BVH.hpp               src/render/accelerate/BVH.cpp
 )
 
 # Executable

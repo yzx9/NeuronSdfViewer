@@ -40,6 +40,7 @@ void renderImage()
 {
     NeuronScene scene;
     scene.load(model);
+    scene.build_bvh();
 
     OrthographicCamera camera(-width / 2, width / 2, height / 2, -height / 2, 0.5, 2000);
 

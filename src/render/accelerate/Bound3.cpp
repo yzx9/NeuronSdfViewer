@@ -7,7 +7,7 @@
 #include "../Ray.hpp"
 
 Bound3::Bound3(Eigen::Vector3f min, Eigen::Vector3f max)
-    : min(min), max(max)
+    : _min(min), _max(max)
 {
 }
 
@@ -17,15 +17,15 @@ Bound3Intersect Bound3::intersect_ray(const Ray &ray) const
     const auto &dir = ray.get_direction();
 
     auto tIn = std::max({
-        (min.x() - origin.x()) / dir.x(),
-        (min.y() - origin.y()) / dir.y(),
-        (min.z() - origin.z()) / dir.z(),
+        (_min.x() - origin.x()) / dir.x(),
+        (_min.y() - origin.y()) / dir.y(),
+        (_min.z() - origin.z()) / dir.z(),
     });
 
     auto tOut = std::min({
-        (max.x() - origin.x()) / dir.x(),
-        (max.y() - origin.y()) / dir.y(),
-        (max.z() - origin.z()) / dir.z(),
+        (_max.x() - origin.x()) / dir.x(),
+        (_max.y() - origin.y()) / dir.y(),
+        (_max.z() - origin.z()) / dir.z(),
     });
 
     return tOut - tIn > -std::numeric_limits<float>::epsilon()
@@ -35,16 +35,25 @@ Bound3Intersect Bound3::intersect_ray(const Ray &ray) const
 
 std::unique_ptr<Bound3> Bound3::union_bound3(const std::unique_ptr<Bound3> &box1, const std::unique_ptr<Bound3> &box2)
 {
-    auto bound3 = Bound3(
-        {
-            std::min(box1->min.x(), box2->min.x()),
-            std::min(box1->min.y(), box2->min.y()),
-            std::min(box1->min.z(), box2->min.z()),
+    return std::make_unique<Bound3>(
+        Eigen::Vector3f{
+            std::min(box1->_min.x(), box2->_min.x()),
+            std::min(box1->_min.y(), box2->_min.y()),
+            std::min(box1->_min.z(), box2->_min.z()),
         },
-        {
-            std::max(box1->max.x(), box2->max.x()),
-            std::max(box1->max.y(), box2->max.y()),
-            std::max(box1->max.z(), box2->max.z()),
+        Eigen::Vector3f{
+            std::max(box1->_max.x(), box2->_max.x()),
+            std::max(box1->_max.y(), box2->_max.y()),
+            std::max(box1->_max.z(), box2->_max.z()),
         });
-    return std::make_unique<Bound3>(bound3);
+}
+
+const Eigen::Vector3f& Bound3::min()
+{
+    return _min;
+}
+
+const Eigen::Vector3f& Bound3::max()
+{
+    return _max;
 }
