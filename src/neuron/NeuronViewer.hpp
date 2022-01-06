@@ -1,4 +1,5 @@
 #pragma once
+#include <Eigen/Dense>
 #include <string>
 #include "NeuronScene.hpp"
 #include "../render/Render.hpp"
@@ -11,7 +12,8 @@ constexpr auto height = 480;
 class NeuronViewer
 {
 public:
-    NeuronViewer(std::string model);
+    NeuronViewer();
+    void load(std::string model);
     void build_bvh();
     void render_image();
     void show_image();

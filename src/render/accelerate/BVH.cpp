@@ -34,9 +34,8 @@ void quick_partion(
     int k,
     const GetBoundVal &val
 ) {
-    if (left >= right) {
+    if (left >= right)
         return;
-    }
 
     auto i = left;
     auto j = right;
@@ -59,12 +58,11 @@ void quick_partion(
         bounds[i] = std::move(bound);
     }
 
-    int mid = (left + right) / 2;
     if (i < k)
     {
         quick_partion(bounds, i + 1, right, k - i, val);
     }
-    else if (i > mid)
+    else if (i > k)
     {
         quick_partion(bounds, left, i - 1, k, val);
     }
@@ -72,23 +70,15 @@ void quick_partion(
 
 std::unique_ptr<BVH> BVH::build(std::vector<std::unique_ptr<BVH>> &bounds, int left, int right, int depth)
 {
-    if (left >= right) {
+    if (left >= right)
         return std::move(bounds[left]);
-    }
-
-    constexpr auto getX = [](const std::unique_ptr<BVH>& bound) {
-        return bound->aabb->min().x();
-    };
-
-    constexpr auto getY = [](const std::unique_ptr<BVH>& bound) {
-        return bound->aabb->min().x();
-    };
-
-    constexpr auto getZ = [](const std::unique_ptr<BVH>& bound) {
-        return bound->aabb->min().z();
-    };
 
     GetBoundVal val;
+    using pBVH = std::unique_ptr<BVH>;
+    constexpr auto getX = [](const pBVH &bound) { return bound->aabb->min().x() + bound->aabb->max().x(); };
+    constexpr auto getY = [](const pBVH &bound) { return bound->aabb->min().y() + bound->aabb->max().y(); };
+    constexpr auto getZ = [](const pBVH &bound) { return bound->aabb->min().z() + bound->aabb->max().z(); };
+
     switch (depth % 3)
     {
     case 0: val = getX;
@@ -98,37 +88,27 @@ std::unique_ptr<BVH> BVH::build(std::vector<std::unique_ptr<BVH>> &bounds, int l
 
     int mid = (left + right) / 2;
     quick_partion(bounds, left, right, mid, val);
-    std::unique_ptr<BVH> lchild = BVH::build(bounds, left, mid, depth + 1);
-    std::unique_ptr<BVH> rchild = BVH::build(bounds, mid + 1, right, depth + 1);
+    pBVH lchild = BVH::build(bounds, left, mid, depth + 1);
+    pBVH rchild = BVH::build(bounds, mid + 1, right, depth + 1);
     return std::make_unique<BVH>(std::move(lchild), std::move(rchild));
 }
 
-Bound3Intersect BVH::intersect_ray(const Ray& ray) const
+Intersect BVH::intersect_ray(const Ray& ray) const
 {
-    auto intersect = aabb->intersect_ray(ray);
+    auto intersect = aabb->intersect_ray(ray); 
     if (!intersect.happend)
-    {
-        return Bound3Intersect();
-    }
+        return Intersect();
 
     if (object)
-    {
-        if (object->intersect_ray(ray))
-        {
-            // should be another intersect
-            return Bound3Intersect(0.0f, 0.0f);
-        }
-
-        return Bound3Intersect();
-    }
+        return object->intersect_ray(ray, intersect.tMin, intersect.tMax);
 
     auto left = this->left->intersect_ray(ray);
     auto right = this->right->intersect_ray(ray);
-    if (!left.happend && !right.happend)
-    {
-        return Bound3Intersect();
-    }
+    if (!left.happend)
+        return right;
 
-    // should be another intersect
-    return Bound3Intersect(0.0f, 0.0f);
+    if (!right.happend)
+        return Intersect();
+
+    return left.t <= right.t ? left : right;
 }

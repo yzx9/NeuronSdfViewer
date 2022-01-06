@@ -21,4 +21,6 @@ private:
     std::vector<std::unique_ptr<Object>> objects;
 
     std::unique_ptr<BVH> bvh;
+
+    Intersect intersect_ray(const Ray& ray) const;
 };

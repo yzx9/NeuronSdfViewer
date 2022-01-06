@@ -2,6 +2,7 @@
 #include <vector>
 #include <memory>
 #include "Bound3.hpp"
+#include "../Intersect.hpp"
 #include "../object/Object.hpp"
 
 class BVH
@@ -9,7 +10,7 @@ class BVH
 public:
 	static std::unique_ptr<BVH> build(std::vector<std::unique_ptr<Object>> objects);
 
-	Bound3Intersect intersect_ray(const Ray& ray) const;
+	Intersect intersect_ray(const Ray& ray) const;
 
 	BVH(std::unique_ptr<Object> object);
 

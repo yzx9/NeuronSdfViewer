@@ -2,8 +2,12 @@
 #include <opencv2/opencv.hpp>
 #include "NeuronViewer.hpp"
 
-NeuronViewer::NeuronViewer(std::string model)
+NeuronViewer::NeuronViewer()
     : scene(), render(width, height), camera(-width / 2, width / 2, height / 2, -height / 2, 0.5, 2000)
+{
+}
+
+void NeuronViewer::load(std::string model)
 {
     scene.load(model);
 }

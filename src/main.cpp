@@ -13,8 +13,9 @@ int main()
 {
     try
     {
-        constexpr auto model = "../assets/228-1-NBSS.CNG.swc";
-        NeuronViewer viewer(model);
+        NeuronViewer viewer;
+        viewer.load("../assets/228-1-NBSS.CNG.swc");
+
         runWithClockInfo("Build BVH", [&] { viewer.build_bvh(); });
         runWithClockInfo("Render", [&] { viewer.render_image(); });
 

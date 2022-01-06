@@ -25,6 +25,7 @@ set(SOURCES
     src/render/Render.cpp       src/render/Render.hpp
     src/render/Ray.cpp          src/render/Ray.hpp
     src/render/Scene.cpp        src/render/Scene.hpp
+    src/render/Intersect.hpp    src/render/Intersect.cpp
     
     # camera
     src/render/camera/Camera.cpp                src/render/camera/Camera.hpp
