@@ -9,6 +9,8 @@ class Object
 public:
     Object(Eigen::Vector3f position) : position(position){};
 
+    virtual ~Object() {};
+
     virtual Intersect intersect_ray(const Ray &ray) const = 0;
 
     virtual Intersect intersect_ray(const Ray &ray, const float &tMin, const float &tMax) const = 0;

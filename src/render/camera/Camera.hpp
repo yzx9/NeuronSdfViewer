@@ -8,6 +8,8 @@ public:
 	Camera(float aspect_radio);
 
 	Camera(Eigen::Vector3f position, float aspect_radio);
+
+	virtual ~Camera() {};
 	
 	virtual Ray generate_primary_ray(float x, float y) const = 0;
 
