@@ -38,7 +38,6 @@ bool Ray::is_valid(float t) const
     return tMax == floatInfinity || tMax - t > std::numeric_limits<float>::epsilon();
 }
 
-
 void Ray::set_t_max(float t_max)
 {
     this->tMax = t_max;

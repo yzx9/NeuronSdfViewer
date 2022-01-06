@@ -14,16 +14,15 @@ float SdfSphere::sdf(const Eigen::Vector3f &position) const
 
 std::unique_ptr<Bound3> SdfSphere::build_bound3() const
 {
-    auto bound3 = Bound3(
-        {
-            position.x() - radis,
-            position.y() - radis,
-            position.z() - radis,
-        },
-        {
-            position.x() + radis,
-            position.y() + radis,
-            position.z() + radis,
-        });
-    return std::make_unique<Bound3>(bound3);
+    Eigen::Vector3f min{
+        position.x() - radis,
+        position.y() - radis,
+        position.z() - radis,
+    };
+    Eigen::Vector3f max{
+        position.x() + radis,
+        position.y() + radis,
+        position.z() + radis,
+    };
+    return std::make_unique<Bound3>(min, max);
 }

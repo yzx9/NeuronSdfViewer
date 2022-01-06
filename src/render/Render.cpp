@@ -38,9 +38,8 @@ void Render::draw(const Scene &scene, const Camera &camera)
         }
     }
 
-    for (int m = 0; m < size; m++) {
+    for (int m = 0; m < size; m++)
         color_buffer[m] = futures[m].get();
-    }
 }
 
 ColorBuffer& Render::get_frame_buffer() noexcept

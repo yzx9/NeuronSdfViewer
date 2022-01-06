@@ -49,15 +49,16 @@ float SdfRoundCone::sdf(const Vector3f &p) const
 
 std::unique_ptr<Bound3> SdfRoundCone::build_bound3() const
 {
-    auto bound3 = std::make_unique<Bound3>(Vector3f{
-                                               std::min(a.x() - ra, b.x() - rb),
-                                               std::min(a.y() - ra, b.y() - rb),
-                                               std::min(a.z() - ra, b.z() - rb),
-                                           },
-                                           Vector3f{
-                                               std::max(a.x() + ra, b.x() + rb),
-                                               std::max(a.y() + ra, b.y() + rb),
-                                               std::max(a.z() + ra, b.z() + rb),
-                                           });
+    Vector3f min{
+        std::min(a.x() - ra, b.x() - rb),
+        std::min(a.y() - ra, b.y() - rb),
+        std::min(a.z() - ra, b.z() - rb),
+    };
+    Vector3f max{
+        std::max(a.x() + ra, b.x() + rb),
+        std::max(a.y() + ra, b.y() + rb),
+        std::max(a.z() + ra, b.z() + rb),
+    };
+    auto bound3 = std::make_unique<Bound3>(min, max);
     return std::move(bound3);
 }

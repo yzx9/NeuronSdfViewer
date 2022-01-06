@@ -1,5 +1,6 @@
 #include <string>
 #include <memory>
+#include <Eigen/Dense>
 #include "NeuronScene.hpp"
 #include "SwcLoader.hpp"
 #include "SwcNode.hpp"
