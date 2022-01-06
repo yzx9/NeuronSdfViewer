@@ -20,17 +20,21 @@ Bound3Intersect Bound3::intersect_ray(const Ray &ray) const
         (_min.x() - origin.x()) / dir.x(),
         (_min.y() - origin.y()) / dir.y(),
         (_min.z() - origin.z()) / dir.z(),
-    });
+        });
 
     auto tOut = std::min({
         (_max.x() - origin.x()) / dir.x(),
         (_max.y() - origin.y()) / dir.y(),
         (_max.z() - origin.z()) / dir.z(),
-    });
+        });
 
-    return tOut - tIn > -std::numeric_limits<float>::epsilon()
-               ? Bound3Intersect(tIn, tOut)
-               : Bound3Intersect();
+    if (tIn < std::numeric_limits<float>::epsilon())
+        return Bound3Intersect(0.0f, tOut);
+
+    if (tOut - tIn > -std::numeric_limits<float>::epsilon())
+        return Bound3Intersect(tIn, tOut);
+
+    return Bound3Intersect();
 }
 
 std::unique_ptr<Bound3> Bound3::union_bound3(const std::unique_ptr<Bound3> &box1, const std::unique_ptr<Bound3> &box2)
@@ -48,12 +52,6 @@ std::unique_ptr<Bound3> Bound3::union_bound3(const std::unique_ptr<Bound3> &box1
         });
 }
 
-const Eigen::Vector3f& Bound3::min()
-{
-    return _min;
-}
+const Eigen::Vector3f& Bound3::min() { return _min; }
 
-const Eigen::Vector3f& Bound3::max()
-{
-    return _max;
-}
+const Eigen::Vector3f& Bound3::max() { return _max; }

@@ -104,11 +104,15 @@ Intersect BVH::intersect_ray(const Ray& ray) const
 
     auto left = this->left->intersect_ray(ray);
     auto right = this->right->intersect_ray(ray);
-    if (!left.happend)
+
+    if (left.happend && right.happend)
+        return left.t <= right.t ? left : right;
+    
+    if (left.happend)
+        return left;
+
+    if (right.happend)
         return right;
 
-    if (!right.happend)
-        return Intersect();
-
-    return left.t <= right.t ? left : right;
+    return Intersect();
 }

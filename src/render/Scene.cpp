@@ -1,3 +1,4 @@
+#include <limits>
 #include "Scene.hpp"
 #include "accelerate/BVH.hpp"
 
@@ -18,20 +19,22 @@ Intersect Scene::intersect_ray(const Ray& ray) const
     if (bvh)
         return bvh->intersect_ray(ray);
 
+    Intersect intersect{};
     for (const auto& obj : objects)
     {
-        if (auto intersect = obj->intersect_ray(ray); intersect.happend)
-            return intersect;
+        if (auto inter = obj->intersect_ray(ray); inter.happend && inter.t < intersect.t)
+            intersect = inter;
     }
 
-    return Intersect();
+    return intersect;
 }
 
 Eigen::Vector3f Scene::cast_ray(const Ray& ray) const
 {
-    // TODO: Material
     auto intersect = intersect_ray(ray);
-    return intersect.happend
-        ? Eigen::Vector3f{ 1.0f, 1.0f, 1.0f }
-        : Eigen::Vector3f{ 0.0f, 0.0f, 0.0f };
+    if (intersect.happend)
+        return { 1.0f, 1.0f, 1.0f };
+
+    // TODO: Material
+    return { 0.0f, 0.0f, 0.0f };
 }

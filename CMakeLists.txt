@@ -19,7 +19,7 @@ set(SOURCES
     src/neuron/SwcNode.cpp      src/neuron/SwcNode.hpp
     src/neuron/SwcLoader.cpp    src/neuron/SwcLoader.hpp
     src/neuron/NeuronScene.cpp  src/neuron/NeuronScene.hpp
-    src/neuron/NeuronViewer.hpp src/neuron/NeuronViewer.cpp
+    src/neuron/NeuronViewer.cpp src/neuron/NeuronViewer.hpp
 
     # render
     src/render/Render.cpp       src/render/Render.hpp
