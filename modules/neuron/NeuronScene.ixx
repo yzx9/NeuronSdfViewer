@@ -11,7 +11,15 @@ import Render;
 export class NeuronScene : public Scene
 {
 public:
-    void load(std::string filepath);
+    void load(std::string filepath)
+    {
+        auto root = SwcLoader::load(filepath);
+
+        if (!root)
+            return;
+
+        addSwcTree(root, nullptr);
+    };
 
 private:
     void addSwcTree(std::unique_ptr<SwcNode> const&root, std::unique_ptr<SwcNode> const&parent)
@@ -38,13 +46,3 @@ private:
             addSwcTree(root->child, root);
     };
 };
-
-void NeuronScene::load(std::string filepath)
-{
-    auto root = SwcLoader::load(filepath);
-
-    if (!root)
-        return;
-
-    addSwcTree(root, nullptr);
-}

@@ -3,8 +3,8 @@ module;
 #include <Eigen/Dense>
 export module Render.Basis:Object;
 
+import :Accelerate;
 import :Intersect;
-import Render.Accelerate;
 
 export class Object
 {

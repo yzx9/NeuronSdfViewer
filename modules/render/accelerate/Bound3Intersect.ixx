@@ -10,17 +10,7 @@ public:
 	float tMin;
 	float tMax;
 
-	Bound3Intersect();
+	Bound3Intersect() : happend(false), tMin(infinity), tMax(infinity) {};
 
-	Bound3Intersect(float tMin, float tMax);
+	Bound3Intersect(float tMin, float tMax) : happend(true), tMin(tMin), tMax(tMax) {};
 };
-
-Bound3Intersect::Bound3Intersect()
-	: happend(false), tMin(infinity), tMax(infinity)
-{
-}
-
-Bound3Intersect::Bound3Intersect(float tMin, float tMax)
-	: happend(true), tMin(tMin), tMax(tMax)
-{
-}
