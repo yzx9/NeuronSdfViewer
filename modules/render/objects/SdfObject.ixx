@@ -2,7 +2,7 @@ module;
 #include <Eigen/Dense>
 export module Render.Object.Sdf:Object;
 
-import Render;
+import Render.Basis;
 
 export class SdfObject : public Object {
 public:

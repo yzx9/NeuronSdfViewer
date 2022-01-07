@@ -3,7 +3,7 @@
 #include <iostream>
 #include <opencv2/opencv.hpp>
 
-import Neuron.Viewer;
+import Neuron;
 import Utils.Debug;
 
 int main()

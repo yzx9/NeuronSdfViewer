@@ -6,6 +6,7 @@ export module Render.Object.Sdf:RoundCone;
 
 import :Object;
 import Render.Accelerate;
+import Render.Basis;
 
 export class SdfRoundCone : public SdfObject
 {

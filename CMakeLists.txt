@@ -30,12 +30,15 @@ set(SOURCE_FILE
     modules/neuron/SwcNode.ixx
 
     # Render
-    modules/render/Camera.ixx
-    modules/render/Intersect.ixx
-    modules/render/Object.ixx
-    modules/render/Ray.ixx
     modules/render/Render.ixx
-    modules/render/Scene.ixx
+
+    # Render.Basis
+    modules/render/basis/Camera.ixx
+    modules/render/basis/Intersect.ixx
+    modules/render/basis/Object.ixx
+    modules/render/basis/Ray.ixx
+    modules/render/basis/Render.ixx
+    modules/render/basis/Scene.ixx
 
     # Render.Accelerate
     modules/render/accelerate/Bound3.ixx
@@ -70,7 +73,7 @@ target_compile_features(neuron_sdf_viewer PRIVATE cxx_std_20)
 
 target_compile_options(neuron_sdf_viewer PRIVATE
     $<$<CXX_COMPILER_ID:MSVC>:
-        /W4 /WX /permissive- /Z7 /MT /MP /Bt+>)
+        /W4 /permissive- /Z7 /MT /MP /Bt+>)
 
 set_target_properties(neuron_sdf_viewer PROPERTIES INTERPROCEDURAL_OPTIMIZATION ON)
 

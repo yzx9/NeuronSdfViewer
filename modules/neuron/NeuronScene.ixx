@@ -2,12 +2,11 @@ module;
 #include <memory>
 #include <string>
 #include <Eigen/Dense>
-export module Neuron.Scene;
+export module Neuron:Scene;
 
-import Neuron.SwcLoader;
-import Neuron.SwcNode;
+import :SwcLoader;
+import :SwcNode;
 import Render;
-import Render.Object.Sdf;
 
 export class NeuronScene : public Scene
 {

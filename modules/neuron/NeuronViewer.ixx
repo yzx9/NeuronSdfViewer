@@ -2,11 +2,10 @@ module;
 #include <string>
 #include <Eigen/Dense>
 #include <opencv2/opencv.hpp>
-export module Neuron.Viewer;
+export module Neuron:Viewer;
 
-import Neuron.Scene;
+import :Scene;
 import Render;
-import Render.Camera;
 
 constexpr auto title = "neuron-sdf-viewer";
 constexpr auto width = 620;

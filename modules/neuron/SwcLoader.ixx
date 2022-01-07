@@ -5,9 +5,9 @@ module;
 #include <fstream>
 #include <memory>
 #include <map>
-export module Neuron.SwcLoader;
+export module Neuron:SwcLoader;
 
-import Neuron.SwcNode;
+import :SwcNode;
 
 export class SwcLoader
 {

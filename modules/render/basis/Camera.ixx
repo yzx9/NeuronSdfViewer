@@ -1,6 +1,6 @@
 module;
 #include <Eigen/Dense>
-export module Render.Camera:Camera;
+export module Render.Basis:Camera;
 
 import :Ray;
 

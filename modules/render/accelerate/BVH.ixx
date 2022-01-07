@@ -5,7 +5,7 @@ module;
 export module Render.Accelerate:BVH;
 
 import :Bound3;
-import Render;
+import Render.Basis;
 import Utils.Partion;
 
 export class BVH

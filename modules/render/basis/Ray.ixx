@@ -1,7 +1,7 @@
 module;
 #include <limits>
 #include <Eigen/Dense>
-export module Render:Ray;
+export module Render.Basis:Ray;
 
 constexpr auto floatInfinity = std::numeric_limits<float>::infinity();
 

@@ -2,7 +2,7 @@ module;
 #include <string>
 #include <memory>
 #include <regex>
-export module Neuron.SwcNode;
+export module Neuron:SwcNode;
 
 export class SwcNode
 {

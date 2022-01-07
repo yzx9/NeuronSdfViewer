@@ -1,7 +1,7 @@
 module;
 #include <memory>
 #include <Eigen/Dense>
-export module Render:Object;
+export module Render.Basis:Object;
 
 import :Intersect;
 import Render.Accelerate;

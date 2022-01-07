@@ -3,7 +3,7 @@ module;
 #include <vector>
 #include <limits>
 #include <Eigen/Dense>
-export module Render:Scene;
+export module Render.Basis:Scene;
 
 import :Intersect;
 import :Object;

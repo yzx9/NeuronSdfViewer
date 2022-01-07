@@ -4,7 +4,7 @@ module;
 export module Render.Accelerate:Bound3;
 
 import :Bound3Intersect;
-import Render.Ray;
+import Render.Basis;
 
 export class Bound3
 {
