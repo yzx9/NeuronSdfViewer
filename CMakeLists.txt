@@ -1,63 +1,87 @@
-﻿cmake_minimum_required (VERSION 3.8)
-project(neuron_sdf_viewer)
+﻿cmake_minimum_required (VERSION 3.15)
 
-set(CMAKE_CXX_STANDARD 20)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-if(MSVC)
-    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O2 -Wall")
-else()
-    set(CMAKE_CXX_FLAGS "$ENV{CXXFLAGS} -O3 -Wall")
+if(CMAKE_SOURCE_DIR STREQUAL CMAKE_BINARY_DIR)
+    message(FATAL_ERROR "Do not build in-source. Please remove CMakeCache.txt and the CMakeFiles/ directory. Then build out-of-source.")
 endif()
+
+# WORKAROUND
+# This is added so that CMake can recognize the .ixx extension as a module interface.
+set(CMAKE_CXX_SYSROOT_FLAG_CODE "list(APPEND CMAKE_CXX_SOURCE_FILE_EXTENSIONS ixx)")
+
+project(
+    "neuron_sdf_viewer"
+    VERSION 0.1.0
+    LANGUAGES CXX
+)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${neuron_sdf_viewer_SOURCE_DIR}/bin)
 
-set(SOURCES
-    src/main.cpp
+# It is always easier to navigate in an IDE when projects are organized in folders.
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-    # neuron
-    src/neuron/SwcNode.cpp      src/neuron/SwcNode.hpp
-    src/neuron/SwcLoader.cpp    src/neuron/SwcLoader.hpp
-    src/neuron/NeuronScene.cpp  src/neuron/NeuronScene.hpp
-    src/neuron/NeuronViewer.cpp src/neuron/NeuronViewer.hpp
+message("CMAKE_CXX_SOURCE_FILE_EXTENSIONS ${CMAKE_CXX_SOURCE_FILE_EXTENSIONS}")
 
-    # render
-    src/render/Render.cpp       src/render/Render.hpp
-    src/render/Ray.cpp          src/render/Ray.hpp
-    src/render/Scene.cpp        src/render/Scene.hpp
-    src/render/Intersect.hpp    src/render/Intersect.cpp
-    
-    # camera
-    src/render/camera/Camera.cpp                src/render/camera/Camera.hpp
-    src/render/camera/OrthographicCamera.cpp    src/render/camera/OrthographicCamera.hpp
-    src/render/camera/PerspectiveCamera.cpp     src/render/camera/PerspectiveCamera.hpp
+set(SOURCE_FILE
 
-    # object
-    src/render/object/Object.hpp
-    src/render/object/SdfObject.cpp     src/render/object/SdfObject.hpp
-    src/render/object/SdfSphere.cpp     src/render/object/SdfSphere.hpp
-    src/render/object/SdfRoundCone.cpp  src/render/object/SdfRoundCone.hpp
+    # Neuron
+    modules/neuron/NeuronScene.ixx
+    modules/neuron/NeuronViewer.ixx
+    modules/neuron/SwcLoader.ixx
+    modules/neuron/SwcNode.ixx
 
-    # accelerate
-    src/render/accelerate/Bound3.hpp            src/render/accelerate/Bound3.cpp
-    src/render/accelerate/Bound3Intersect.hpp   src/render/accelerate/Bound3Intersect.cpp
-    src/render/accelerate/BVH.hpp               src/render/accelerate/BVH.cpp
-    
-    # utils
-    src/utils/partion.hpp
+    # Render
+    modules/render/Intersect.ixx
+    modules/render/Ray.ixx
+    modules/render/Render.ixx
+    modules/render/Scene.ixx
+
+    # Render.Accelerate
+    modules/render/accelerate/Bound3.ixx
+    modules/render/accelerate/Bound3Intersect.ixx
+    modules/render/accelerate/BVH.ixx
+
+    # Render.Cameras
+    modules/render/cameras/Camera.ixx
+    modules/render/cameras/OrthographicCamera.ixx
+    modules/render/cameras/PerspectiveCamera.ixx
+
+    # World
+    modules/world/objects/Object.ixx
+    modules/world/objects/SdfObject.ixx
+    modules/world/objects/SdfCombinedObject.ixx
+    modules/world/objects/SdfSphere.ixx
+    modules/world/objects/SdfRoundCone.ixx
+
+    # Utils
+    modules/utils/debug.ixx
+    modules/utils/partion.ixx
 )
 
 # Executable
-add_executable(NueronSdfViewer ${SOURCES})
+add_executable(neuron_sdf_viewer src/main.cpp ${SOURCE_FILE})
+
+# Only support statically linking for now.
+target_compile_definitions(neuron_sdf_viewer PRIVATE
+                            SEQUENTIAL_PROCESSING=0)
+
+# Require c++20, this is better than setting CMAKE_CXX_STANDARD since it won't pollute other targets
+# note : cxx_std_* features were added in CMake 3.8.2
+target_compile_features(neuron_sdf_viewer PRIVATE cxx_std_20)
+
+target_compile_options(neuron_sdf_viewer PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:
+        /W4 /WX /permissive- /Z7 /MT /MP /Bt+>)
+
+set_target_properties(neuron_sdf_viewer PROPERTIES INTERPROCEDURAL_OPTIMIZATION ON)
 
 # Eigen3
 find_package (Eigen3 REQUIRED)
-target_link_libraries(NueronSdfViewer Eigen3::Eigen)
+target_link_libraries(neuron_sdf_viewer Eigen3::Eigen)
 
 # OpenCV
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
-target_link_libraries(NueronSdfViewer ${OpenCV_LIBS})
+target_link_libraries(neuron_sdf_viewer ${OpenCV_LIBS})
 
 # Threads
 if(WIN32)
@@ -66,4 +90,4 @@ else()
     set(THREADS_PREFER_PTHREAD_FLAG ON)
 endif()
 find_package(Threads REQUIRED)
-target_link_libraries(NueronSdfViewer Threads::Threads)
+target_link_libraries(neuron_sdf_viewer Threads::Threads)
