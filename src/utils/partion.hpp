@@ -1,9 +1,9 @@
 #pragma once
 #include <functional>
 
-template <typename T, typename K>
+template <typename T, typename K, typename L = std::vector<T>>
 void quick_partion_k(
-    std::vector<T> &list,
+    L &list,
     std::function<K(const T&)> const& val,
     int const&left,
     int const&right,
