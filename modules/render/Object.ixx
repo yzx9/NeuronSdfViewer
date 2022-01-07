@@ -1,11 +1,10 @@
 module;
 #include <memory>
 #include <Eigen/Dense>
-export World.Objects.Object;
+export module Render:Object;
 
-import Render.Intersect;
-import Render.Ray;
-import Render.Accelerate.Bound3;
+import :Intersect;
+import Render.Accelerate;
 
 export class Object
 {

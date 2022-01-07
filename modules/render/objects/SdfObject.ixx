@@ -1,10 +1,8 @@
 module;
 #include <Eigen/Dense>
-export World.Objects.Sdf.Object;
+export module Render.Object.Sdf:Object;
 
-import Render.Ray;
-import Render.Intersect;
-import World.Objects.Object;
+import Render;
 
 export class SdfObject : public Object {
 public:

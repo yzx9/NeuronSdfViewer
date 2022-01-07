@@ -30,7 +30,9 @@ set(SOURCE_FILE
     modules/neuron/SwcNode.ixx
 
     # Render
+    modules/render/Camera.ixx
     modules/render/Intersect.ixx
+    modules/render/Object.ixx
     modules/render/Ray.ixx
     modules/render/Render.ixx
     modules/render/Scene.ixx
@@ -40,17 +42,15 @@ set(SOURCE_FILE
     modules/render/accelerate/Bound3Intersect.ixx
     modules/render/accelerate/BVH.ixx
 
-    # Render.Cameras
-    modules/render/cameras/Camera.ixx
+    # Render.Camera
     modules/render/cameras/OrthographicCamera.ixx
     modules/render/cameras/PerspectiveCamera.ixx
 
-    # World
-    modules/world/objects/Object.ixx
-    modules/world/objects/SdfObject.ixx
-    modules/world/objects/SdfCombinedObject.ixx
-    modules/world/objects/SdfSphere.ixx
-    modules/world/objects/SdfRoundCone.ixx
+    # Render.Object.Sdf
+    modules/render/objects/SdfObject.ixx
+    modules/render/objects/SdfCombinedObject.ixx
+    modules/render/objects/SdfSphere.ixx
+    modules/render/objects/SdfRoundCone.ixx
 
     # Utils
     modules/utils/debug.ixx

@@ -1,15 +1,15 @@
 module;
-#include <exception>
-#include <stdlib.h>
+#include <stdexcept>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <memory>
 #include <map>
 export module Neuron.SwcLoader;
 
 import Neuron.SwcNode;
 
-class SwcLoader
+export class SwcLoader
 {
 public:
     static std::unique_ptr<SwcNode> load(const std::string& filepath);

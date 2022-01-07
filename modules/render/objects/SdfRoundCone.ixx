@@ -2,12 +2,12 @@ module;
 #include <math.h>
 #include <memory>
 #include <Eigen/Dense>
-export module World.Objects.Sdf.RoundCone;
+export module Render.Object.Sdf:RoundCone;
 
-import Render.Accelerate.Bound3;
-import World.Objects.Sdf.Object;
+import :Object;
+import Render.Accelerate;
 
-class SdfRoundCone : public SdfObject
+export class SdfRoundCone : public SdfObject
 {
 public:
     SdfRoundCone(Eigen::Vector3f a, Eigen::Vector3f b, float ra, float rb);

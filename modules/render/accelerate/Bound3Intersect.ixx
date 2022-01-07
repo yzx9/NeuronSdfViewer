@@ -1,6 +1,6 @@
 module;
 #include <limits>
-export module Render.Accelerate.Bound3Intersect;
+export module Render.Accelerate:Bound3Intersect;
 
 constexpr auto infinity = std::numeric_limits<float>::infinity();
 

@@ -1,4 +1,5 @@
-﻿#include <stdlib.h>
+﻿#include <stdexcept>
+#include <stdlib.h>
 #include <iostream>
 #include <opencv2/opencv.hpp>
 

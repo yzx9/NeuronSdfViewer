@@ -1,34 +1,29 @@
 module;
 #include <memory>
 #include <Eigen/Dense>
-export module Render.Accelerate.Bound3;
+export module Render.Accelerate:Bound3;
 
+import :Bound3Intersect;
 import Render.Ray;
-import Render.Bound3Intersect;
 
 export class Bound3
 {
 public:
-    Bound3(Eigen::Vector3f min, Eigen::Vector3f max);
+    Bound3(Eigen::Vector3f min, Eigen::Vector3f max) : _min(min), _max(max) {};
 
     Bound3Intersect intersect_ray(const Ray &ray) const;
 
     static std::unique_ptr<Bound3> union_bound3(const std::unique_ptr<Bound3> &box1, const std::unique_ptr<Bound3> &box2);
 
-    const Eigen::Vector3f& min();
+    const Eigen::Vector3f& min() { return _min; };
 
-    const Eigen::Vector3f& max();
+    const Eigen::Vector3f& max() { return _max; };
 
 private:
     Eigen::Vector3f _min;
 
     Eigen::Vector3f _max;
 };
-
-Bound3::Bound3(Eigen::Vector3f min, Eigen::Vector3f max)
-    : _min(min), _max(max)
-{
-}
 
 Bound3Intersect Bound3::intersect_ray(const Ray& ray) const
 {
@@ -53,7 +48,3 @@ std::unique_ptr<Bound3> Bound3::union_bound3(const std::unique_ptr<Bound3>& box1
     auto max = box1->_max.cwiseMax(box2->_max);
     return std::make_unique<Bound3>(min, max);
 }
-
-const Eigen::Vector3f& Bound3::min() { return _min; }
-
-const Eigen::Vector3f& Bound3::max() { return _max; }

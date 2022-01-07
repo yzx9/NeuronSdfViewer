@@ -5,8 +5,8 @@ module;
 export module Neuron.Viewer;
 
 import Neuron.Scene;
-import Render.Render;
-import Render.Cameras.OrthographicCamera;
+import Render;
+import Render.Camera;
 
 constexpr auto title = "neuron-sdf-viewer";
 constexpr auto width = 620;

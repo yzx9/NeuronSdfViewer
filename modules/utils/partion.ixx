@@ -1,6 +1,6 @@
 module;
 #include <functional>
-export module Utils;
+export module Utils.Partion;
 
 export
 template <typename T, typename K, typename L = std::vector<T>>

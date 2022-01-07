@@ -4,10 +4,10 @@ module;
 #include <limits>
 #include <math.h>
 #include <Eigen/Dense>
-export module World.Objects.Sdf.CombinedObject;
+export module Render.Object.Sdf:CombinedObject;
 
-import Render.Accelerate.Bound3;
-import World.Objects.Sdf.Object;
+import :Object;
+import Render.Accelerate;
 
 export class SdfCombinedObject : public SdfObject
 {

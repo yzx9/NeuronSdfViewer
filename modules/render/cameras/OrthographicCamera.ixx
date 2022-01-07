@@ -1,9 +1,9 @@
 module;
-#include <math.h>
-export module Render.Cameras.OrthographicCamera;
+#include <cmath>
+#include <Eigen/Dense>
+export module Render.Camera:OrthographicCamera;
 
-import Render.Ray;
-import Render.Cameras.Camera;
+import Render;
 
 export class OrthographicCamera : public Camera {
 public:

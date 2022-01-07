@@ -3,23 +3,29 @@ module;
 #include <vector>
 #include <limits>
 #include <Eigen/Dense>
-export module Render.Scene;
+export module Render:Scene;
 
-import Render.Ray;
-import Render.Accelerate.BVH;
-import Render.Intersect;
-import World.Objects.Object;
+import :Intersect;
+import :Object;
+import :Ray;
+import Render.Accelerate;
 
 export class Scene
 {
 public:
-    Scene();
+    Scene() : objects(), bvh(nullptr) {};
 
     Eigen::Vector3f cast_ray(const Ray& ray) const;
 
-    void add(std::unique_ptr<Object> obj);
+    void add(std::unique_ptr<Object> obj)
+    {
+        objects.emplace_back(std::move(obj));
+    };
 
-    void build_bvh();
+    void build_bvh()
+    {
+        bvh = BVH::build(std::move(objects));
+    };
 
 private:
     std::vector<std::unique_ptr<Object>> objects;
@@ -29,16 +35,14 @@ private:
     Intersect intersect_ray(const Ray& ray) const;
 };
 
-Scene::Scene() : objects(), bvh(nullptr) {}
-
-void Scene::add(std::unique_ptr<Object> obj)
+Eigen::Vector3f Scene::cast_ray(const Ray& ray) const
 {
-    objects.emplace_back(std::move(obj));
-}
+    auto intersect = intersect_ray(ray);
+    if (intersect.happend)
+        return { 1.0f, 1.0f, 1.0f };
 
-void Scene::build_bvh()
-{
-    bvh = BVH::build(std::move(objects));
+    // TODO: Material
+    return { 0.0f, 0.0f, 0.0f };
 }
 
 Intersect Scene::intersect_ray(const Ray& ray) const
@@ -55,14 +59,3 @@ Intersect Scene::intersect_ray(const Ray& ray) const
 
     return intersect;
 }
-
-Eigen::Vector3f Scene::cast_ray(const Ray& ray) const
-{
-    auto intersect = intersect_ray(ray);
-    if (intersect.happend)
-        return { 1.0f, 1.0f, 1.0f };
-
-    // TODO: Material
-    return { 0.0f, 0.0f, 0.0f };
-}
-

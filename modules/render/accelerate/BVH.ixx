@@ -1,11 +1,12 @@
 module;
 #include <vector>
 #include <memory>
-#include "../object/Object.hpp"
-export module Render.Accelerate;
+#include <functional>
+export module Render.Accelerate:BVH;
 
-import Render.Intersect;
-import Render.Accelerate.Bound3;
+import :Bound3;
+import Render;
+import Utils.Partion;
 
 export class BVH
 {

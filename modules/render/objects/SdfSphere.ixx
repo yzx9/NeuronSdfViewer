@@ -1,10 +1,10 @@
 module;
 #include <memory>
 #include <Eigen/Dense>
-export module World.Objects.Sdf.Sphere;
+export module Render.Object.Sdf:Sphere;
 
-import Render.Accelerate.Bound3;
-import World.Objects.Sdf.Object;
+import :Object;
+import Render.Accelerate;
 
 export class SdfSphere : public SdfObject
 {

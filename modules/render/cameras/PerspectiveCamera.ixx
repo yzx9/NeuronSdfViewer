@@ -1,9 +1,8 @@
 module;
 #include <Eigen/Dense>
-export module Render.Cameras.PerspectiveCamera;
+export module Render.Camera:PerspectiveCamera;
 
-import Render.Ray;
-import Render.Cameras.Camera;
+import Render;
 
 export class PerspectiveCamera : public Camera {
 public:

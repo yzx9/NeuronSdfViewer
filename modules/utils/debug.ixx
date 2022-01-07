@@ -3,6 +3,7 @@ module;
 #include <string>
 #include <stdlib.h>
 #include <iostream>
+#include <iomanip>
 #include <exception>
 #include <functional>
 export module Utils.Debug;
