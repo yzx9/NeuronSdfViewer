@@ -3,7 +3,7 @@
 #include "NeuronViewer.hpp"
 
 NeuronViewer::NeuronViewer()
-    : scene(), render(width, height), camera(-width / 2, width / 2, height / 2, -height / 2, 0.5, 2000)
+    : scene(), camera(-width / 2, width / 2, height / 2, -height / 2, 0.5, 2000), render(width, height)
 {
 }
 
@@ -24,7 +24,8 @@ void NeuronViewer::render_image()
 
 void NeuronViewer::show_image()
 {
-    auto& colorBuffer = render.get_frame_buffer();
+    auto &colorBuffer = render.get_frame_buffer();
     cv::Mat img(height, width, CV_8UC3, colorBuffer.data());
     cv::imshow(title, img);
+    cv::waitKey(0);
 }

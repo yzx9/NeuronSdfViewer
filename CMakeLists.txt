@@ -16,27 +16,27 @@ set(SOURCES
     src/main.cpp
 
     # neuron
-    src/neuron/SwcNode.cpp      src/neuron/SwcNode.hpp
-    src/neuron/SwcLoader.cpp    src/neuron/SwcLoader.hpp
-    src/neuron/NeuronScene.cpp  src/neuron/NeuronScene.hpp
-    src/neuron/NeuronViewer.cpp src/neuron/NeuronViewer.hpp
+    src/neuron/SwcNode.hpp                      src/neuron/SwcNode.cpp
+    src/neuron/SwcLoader.hpp                    src/neuron/SwcLoader.cpp
+    src/neuron/NeuronScene.hpp                  src/neuron/NeuronScene.cpp
+    src/neuron/NeuronViewer.hpp                 src/neuron/NeuronViewer.cpp
 
     # render
-    src/render/Render.cpp       src/render/Render.hpp
-    src/render/Ray.cpp          src/render/Ray.hpp
-    src/render/Scene.cpp        src/render/Scene.hpp
-    src/render/Intersect.hpp    src/render/Intersect.cpp
+    src/render/Render.hpp                       src/render/Render.cpp
+    src/render/Ray.hpp                          src/render/Ray.cpp
+    src/render/Scene.hpp                        src/render/Scene.cpp
+    src/render/Intersect.hpp                    src/render/Intersect.cpp
     
     # camera
-    src/render/camera/Camera.cpp                src/render/camera/Camera.hpp
-    src/render/camera/OrthographicCamera.cpp    src/render/camera/OrthographicCamera.hpp
-    src/render/camera/PerspectiveCamera.cpp     src/render/camera/PerspectiveCamera.hpp
+    src/render/camera/Camera.hpp                src/render/camera/Camera.cpp
+    src/render/camera/OrthographicCamera.hpp    src/render/camera/OrthographicCamera.cpp
+    src/render/camera/PerspectiveCamera.hpp     src/render/camera/PerspectiveCamera.cpp
 
     # object
     src/render/object/Object.hpp
-    src/render/object/SdfObject.cpp     src/render/object/SdfObject.hpp
-    src/render/object/SdfSphere.cpp     src/render/object/SdfSphere.hpp
-    src/render/object/SdfRoundCone.cpp  src/render/object/SdfRoundCone.hpp
+    src/render/object/SdfObject.hpp             src/render/object/SdfObject.cpp
+    src/render/object/SdfSphere.hpp             src/render/object/SdfSphere.cpp
+    src/render/object/SdfRoundCone.hpp          src/render/object/SdfRoundCone.cpp
 
     # accelerate
     src/render/accelerate/Bound3.hpp            src/render/accelerate/Bound3.cpp
@@ -44,6 +44,7 @@ set(SOURCES
     src/render/accelerate/BVH.hpp               src/render/accelerate/BVH.cpp
     
     # utils
+    src/utils/debug.hpp                         src/utils/debug.cpp
     src/utils/partion.hpp
 )
 
