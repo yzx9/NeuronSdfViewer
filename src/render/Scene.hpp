@@ -38,10 +38,8 @@ private:
 
         Intersect intersect{};
         for (const auto &obj : objects)
-        {
             if (auto inter = obj->intersect_ray(ray); inter.happend && inter.t < intersect.t)
                 intersect = inter;
-        }
 
         return intersect;
     };

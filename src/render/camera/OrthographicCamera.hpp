@@ -10,7 +10,13 @@ public:
         float top, float bottom,
         float near, float far)
         : Camera((right - left) / (top - bottom)),
-          left(left), right(right), top(top), bottom(bottom), near(near), far(far){};
+          left(left),
+          right(right),
+          top(top),
+          bottom(bottom),
+          near(near),
+          far(far),
+          dir({0, 0, far > near ? 1.0f : -1.0f}){};
 
     Ray generate_primary_ray(float x, float y) const override
     {
@@ -18,8 +24,7 @@ public:
             (right - left) * (1 + x) * 0.5f + left,
             (top - bottom) * (1 + y) * 0.5f + bottom,
             near};
-        auto sign = far > near ? 1.0f : -1.0f;
-        return Ray(origin, {0, 0, sign}, std::abs(far - near));
+        return Ray(origin, dir, std::abs(far - near));
     };
 
 private:
@@ -29,4 +34,6 @@ private:
     float bottom;
     float near;
     float far;
+
+    Eigen::Vector3f dir;
 };

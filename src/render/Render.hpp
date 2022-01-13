@@ -34,22 +34,25 @@ public:
             auto ray = camera.generate_primary_ray(x, y);
             auto color = scene.cast_ray(ray);
 
-            constexpr auto max = std::numeric_limits<uint8_t>::max();
-            return Eigen::Matrix<uint8_t, 3, 1>{
-                static_cast<uint8_t>(max * color[0]),
-                static_cast<uint8_t>(max * color[1]),
-                static_cast<uint8_t>(max * color[2])};
+            constexpr auto cast = [](float color)
+            {
+                constexpr auto max = std::numeric_limits<uint8_t>::max();
+                return static_cast<uint8_t>(max * color);
+            };
+
+            return Eigen::Vector3<uint8_t>{cast(color[0]), cast(color[1]), cast(color[2])};
         };
 
         std::vector<std::future<Eigen::Matrix<uint8_t, 3, 1>>> futures;
         futures.reserve(size);
         for (auto i = 0; i < height; i++)
-        {
             for (auto j = 0; j < width; j++)
-            {
-                std::future<Eigen::Matrix<uint8_t, 3, 1>> fut = std::async(calcPixel, j, i);
-                futures.emplace_back(std::move(fut));
-            }
+                futures.emplace_back(std::async(calcPixel, j, i));
+
+        for (int m = 0; m < size; m++)
+        {
+            futures[m].wait();
+            // TODO: Progress
         }
 
         for (int m = 0; m < size; m++)

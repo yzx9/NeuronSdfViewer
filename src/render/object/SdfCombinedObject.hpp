@@ -17,7 +17,7 @@ public:
         auto min = std::numeric_limits<float>::max();
         for (auto &object : objects)
         {
-            // TOOD: support mix function
+            // TODO: support mix function
             if (auto sdf = object->sdf(position); sdf < min)
                 min = sdf;
         }
@@ -38,9 +38,8 @@ public:
 
         auto bound3 = objects[0]->build_bound3();
         for (int i = 1; i < size; i++)
-        {
             bound3 = Bound3::union_bound3(bound3, objects[i]->build_bound3());
-        }
+
         return bound3;
     };
 

@@ -15,10 +15,7 @@ public:
         std::vector<std::unique_ptr<BVH>> bounds;
         bounds.reserve(objects.size());
         for (auto &object : objects)
-        {
-            auto bvh = std::make_unique<BVH>(std::move(object));
-            bounds.emplace_back(std::move(bvh));
-        }
+            bounds.emplace_back(std::make_unique<BVH>(std::move(object)));
 
         return BVH::build(bounds, 0, bounds.size() - 1, 0);
     };
@@ -71,7 +68,7 @@ private:
 
         auto val = std::bind(getVal, depth % 3, std::placeholders::_1);
 
-        int mid = (left + right) / 2;
+        auto mid = (left + right) / 2;
         quick_partion_k<pBVH, float>(bounds, val, left, right, mid);
         pBVH lchild = BVH::build(bounds, left, mid, depth + 1);
         pBVH rchild = BVH::build(bounds, mid + 1, right, depth + 1);

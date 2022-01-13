@@ -41,16 +41,9 @@ public:
 
     std::unique_ptr<Bound3> build_bound3() const override
     {
-        Eigen::Vector3f min{
-            std::min(a.x() - ra, b.x() - rb),
-            std::min(a.y() - ra, b.y() - rb),
-            std::min(a.z() - ra, b.z() - rb),
-        };
-        Eigen::Vector3f max{
-            std::max(a.x() + ra, b.x() + rb),
-            std::max(a.y() + ra, b.y() + rb),
-            std::max(a.z() + ra, b.z() + rb),
-        };
+        using Eigen::Vector3f;
+        auto min = (a - Vector3f::Ones(ra)).cwiseMin(b - Vector3f::Ones(rb));
+        auto max = (a + Vector3f::Ones(ra)).cwiseMax(b + Vector3f::Ones(rb));
         return std::make_unique<Bound3>(min, max);
     };
 

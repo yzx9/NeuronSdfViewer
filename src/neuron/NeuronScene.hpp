@@ -15,7 +15,6 @@ public:
     void load(std::string filepath)
     {
         auto root = SwcLoader::load(filepath);
-
         if (!root)
             return;
 
