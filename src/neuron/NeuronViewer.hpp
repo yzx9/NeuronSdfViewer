@@ -1,6 +1,7 @@
 #pragma once
-#include <Eigen/Dense>
 #include <string>
+#include <Eigen/Dense>
+#include <opencv2/opencv.hpp>
 #include "NeuronScene.hpp"
 #include "../render/Render.hpp"
 #include "../render/camera/OrthographicCamera.hpp"
@@ -12,14 +13,26 @@ constexpr auto height = 480;
 class NeuronViewer
 {
 public:
-    NeuronViewer();
-    void load(std::string model);
-    void build_bvh();
-    void render_image();
-    void show_image();
+    NeuronViewer() : scene(), camera(-width / 2, width / 2, height / 2, -height / 2, 0.5, 2000), render(width, height){};
+
+    void load(std::string model) { scene.load(model); };
+
+    void build_bvh() { scene.build_bvh(); };
+
+    void render_image() { render.draw(scene, camera); };
+
+    void show_image()
+    {
+        auto &colorBuffer = render.get_frame_buffer();
+        cv::Mat img(height, width, CV_8UC3, colorBuffer.data());
+        cv::imshow(title, img);
+        cv::waitKey(0);
+    };
 
 private:
     NeuronScene scene;
+
     OrthographicCamera camera;
+
     Render render;
 };

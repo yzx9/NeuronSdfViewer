@@ -16,10 +16,10 @@ set(SOURCES
     src/main.cpp
 
     # neuron
-    src/neuron/SwcNode.hpp                      src/neuron/SwcNode.cpp
-    src/neuron/SwcLoader.hpp                    src/neuron/SwcLoader.cpp
-    src/neuron/NeuronScene.hpp                  src/neuron/NeuronScene.cpp
-    src/neuron/NeuronViewer.hpp                 src/neuron/NeuronViewer.cpp
+    src/neuron/SwcNode.hpp
+    src/neuron/SwcLoader.hpp
+    src/neuron/NeuronScene.hpp
+    src/neuron/NeuronViewer.hpp
 
     # render
     src/render/Render.hpp
@@ -27,21 +27,21 @@ set(SOURCES
     src/render/Scene.hpp
     src/render/Intersect.hpp
     
-    # camera
-    src/render/camera/Camera.hpp                src/render/camera/Camera.cpp
-    src/render/camera/OrthographicCamera.hpp    src/render/camera/OrthographicCamera.cpp
-    src/render/camera/PerspectiveCamera.hpp     src/render/camera/PerspectiveCamera.cpp
+    # render/camera
+    src/render/camera/Camera.hpp
+    src/render/camera/OrthographicCamera.hpp
+    src/render/camera/PerspectiveCamera.hpp
 
-    # object
+    # render/object
     src/render/object/Object.hpp
-    src/render/object/SdfObject.hpp             src/render/object/SdfObject.cpp
-    src/render/object/SdfSphere.hpp             src/render/object/SdfSphere.cpp
-    src/render/object/SdfRoundCone.hpp          src/render/object/SdfRoundCone.cpp
+    src/render/object/SdfObject.hpp
+    src/render/object/SdfSphere.hpp
+    src/render/object/SdfRoundCone.hpp
 
-    # accelerate
-    src/render/accelerate/Bound3.hpp            src/render/accelerate/Bound3.cpp
-    src/render/accelerate/Bound3Intersect.hpp   src/render/accelerate/Bound3Intersect.cpp
-    src/render/accelerate/BVH.hpp               src/render/accelerate/BVH.cpp
+    # render/accelerate
+    src/render/accelerate/Bound3.hpp
+    src/render/accelerate/Bound3Intersect.hpp
+    src/render/accelerate/BVH.hpp
     
     # utils
     src/utils/debug.hpp
