@@ -29,7 +29,7 @@ public:
             "(-?\\d*(?:\\.\\d+)?)\\s" // radius
             "(-1|\\d+)\\s*";          // parent
 
-        static std::regex regex(pattern);
+        const static std::regex regex(pattern);
 
         std::smatch match;
         if (!std::regex_match(s, match, regex))
@@ -47,4 +47,20 @@ public:
         out->next = nullptr;
         return true;
     };
+
+    void add_brother(std::unique_ptr<SwcNode> brother)
+    {
+        if (next)
+            next->add_brother(std::move(brother));
+        else
+            next = std::move(brother);
+    };
+
+    void add_child(std::unique_ptr<SwcNode> new_child)
+    {
+        if (child)
+            child->add_brother(std::move(new_child));
+        else
+            child = std::move(new_child);
+    }
 };
