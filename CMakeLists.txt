@@ -22,10 +22,10 @@ set(SOURCES
     src/neuron/NeuronViewer.hpp                 src/neuron/NeuronViewer.cpp
 
     # render
-    src/render/Render.hpp                       src/render/Render.cpp
-    src/render/Ray.hpp                          src/render/Ray.cpp
-    src/render/Scene.hpp                        src/render/Scene.cpp
-    src/render/Intersect.hpp                    src/render/Intersect.cpp
+    src/render/Render.hpp
+    src/render/Ray.hpp
+    src/render/Scene.hpp
+    src/render/Intersect.hpp
     
     # camera
     src/render/camera/Camera.hpp                src/render/camera/Camera.cpp
@@ -44,7 +44,7 @@ set(SOURCES
     src/render/accelerate/BVH.hpp               src/render/accelerate/BVH.cpp
     
     # utils
-    src/utils/debug.hpp                         src/utils/debug.cpp
+    src/utils/debug.hpp
     src/utils/partion.hpp
 )
 
