@@ -1,3 +1,4 @@
+#pragma once
 #include <Eigen/Dense>
 #include "SdfObject.hpp"
 #include "../accelerate/Bound3.hpp"
@@ -41,9 +42,10 @@ public:
 
     std::unique_ptr<Bound3> build_bound3() const override
     {
-        using Eigen::Vector3f;
-        auto min = (a - Vector3f::Ones(ra)).cwiseMin(b - Vector3f::Ones(rb));
-        auto max = (a + Vector3f::Ones(ra)).cwiseMax(b + Vector3f::Ones(rb));
+        auto aa = ra * Eigen::Vector3f::Ones();
+        auto bb = rb * Eigen::Vector3f::Ones();
+        auto min = (a - aa).cwiseMin(b - bb);
+        auto max = (a + aa).cwiseMax(b + bb);
         return std::make_unique<Bound3>(min, max);
     };
 

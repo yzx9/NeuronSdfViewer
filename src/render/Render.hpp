@@ -9,7 +9,9 @@
 class Render
 {
     // TODO: Support custom type instead uint8_t
-    using ColorBuffer = std::vector<Eigen::Matrix<uint8_t, 3, 1>>;
+    using Type = uint8_t;
+    using Color = Eigen::Matrix<Type, 3, 1>;
+    using ColorBuffer = std::vector<Color>;
 
 private:
     int width;
@@ -34,16 +36,13 @@ public:
             auto ray = camera.generate_primary_ray(x, y);
             auto color = scene.cast_ray(ray);
 
-            constexpr auto cast = [](float color)
-            {
-                constexpr auto max = std::numeric_limits<uint8_t>::max();
-                return static_cast<uint8_t>(max * color);
-            };
+            constexpr auto max = std::numeric_limits<Type>::max();
+            constexpr auto cast = [](float color) { return static_cast<Type>(max * color); };
 
-            return Eigen::Vector3<uint8_t>{cast(color[0]), cast(color[1]), cast(color[2])};
+            return Color{cast(color[0]), cast(color[1]), cast(color[2])};
         };
 
-        std::vector<std::future<Eigen::Matrix<uint8_t, 3, 1>>> futures;
+        std::vector<std::future<Color>> futures;
         futures.reserve(size);
         for (auto i = 0; i < height; i++)
             for (auto j = 0; j < width; j++)
