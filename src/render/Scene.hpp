@@ -5,12 +5,13 @@
 #include <Eigen/Dense>
 #include "Ray.hpp"
 #include "object/Object.hpp"
+#include "accelerate/Accelerate.hpp"
 #include "accelerate/BVH.hpp"
 
 class Scene
 {
 public:
-    Scene() : objects(), bvh(nullptr){};
+    Scene() : objects(), accelerate(nullptr){};
 
     Eigen::Vector3f cast_ray(const Ray &ray) const
     {
@@ -22,19 +23,27 @@ public:
         return {0.0f, 0.0f, 0.0f};
     };
 
-    void add(std::unique_ptr<Object> obj) { objects.emplace_back(std::move(obj)); };
+    void add(std::unique_ptr<Object> obj) {
+        if (accelerate)
+        {
+            objects = accelerate->dispose();
+            accelerate = nullptr;
+        }
 
-    void build_bvh() { bvh = BVH::build(std::move(objects)); };
+        objects.emplace_back(std::move(obj));
+    };
+
+    void build_bvh() { accelerate = BVH::build(std::move(objects)); };
 
 private:
     std::vector<std::unique_ptr<Object>> objects;
 
-    std::unique_ptr<BVH> bvh;
+    std::unique_ptr<Accelerate> accelerate;
 
     Intersect intersect_ray(const Ray &ray) const
     {
-        if (bvh)
-            return bvh->intersect_ray(ray);
+        if (accelerate)
+            return accelerate->intersect_ray(ray);
 
         Intersect intersect{};
         for (const auto &obj : objects)

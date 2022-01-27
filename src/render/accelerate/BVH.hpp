@@ -1,13 +1,14 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "Accelerate.hpp"
 #include "Bound3.hpp"
 #include "Bound3Intersect.hpp"
 #include "../Intersect.hpp"
 #include "../object/Object.hpp"
 #include "../../utils/partion.hpp"
 
-class BVH
+class BVH : public Accelerate
 {
 public:
     static std::unique_ptr<BVH> build(std::vector<std::unique_ptr<Object>> objects)
@@ -20,7 +21,7 @@ public:
         return BVH::build(bounds, 0, bounds.size() - 1, 0);
     };
 
-    Intersect intersect_ray(const Ray &ray) const
+    Intersect intersect_ray(const Ray &ray) const override
     {
         auto intersect = aabb->intersect_ray(ray);
         if (!intersect.happend)
@@ -50,7 +51,7 @@ public:
     BVH(std::unique_ptr<BVH> left, std::unique_ptr<BVH> right)
         : aabb(Bound3::union_bound3(left->aabb, right->aabb)), object(nullptr), left(std::move(left)), right(std::move(right)){};
 
-private:
+protected:
     std::unique_ptr<Bound3> aabb;
     std::unique_ptr<Object> object;
 
@@ -73,5 +74,18 @@ private:
         pBVH lchild = BVH::build(bounds, left, mid, depth + 1);
         pBVH rchild = BVH::build(bounds, mid + 1, right, depth + 1);
         return std::make_unique<BVH>(std::move(lchild), std::move(rchild));
+    };
+
+    void dispose(std::vector<std::unique_ptr<Object>>& objects) override
+    {
+        if (object)
+        {
+            objects.emplace_back(std::move(object));
+        }
+        else
+        {
+            left->dispose(objects);
+            right->dispose(objects);
+        }
     };
 };

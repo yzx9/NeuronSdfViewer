@@ -39,6 +39,7 @@ set(SOURCES
     src/render/object/SdfRoundCone.hpp
 
     # render/accelerate
+    src/render/accelerate/Accelerate.hpp
     src/render/accelerate/Bound3.hpp
     src/render/accelerate/Bound3Intersect.hpp
     src/render/accelerate/BVH.hpp
