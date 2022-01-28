@@ -3,6 +3,7 @@
 #include "../Intersect.hpp"
 #include "../Ray.hpp"
 #include "../accelerate/Bound3.hpp"
+#include "../material/Material.hpp"
 
 class Object
 {
@@ -17,6 +18,18 @@ public:
 
     virtual std::unique_ptr<Bound3> build_bound3() const = 0;
 
+    void set_material(std::shared_ptr<Material> material) { this->material = material; };
+
+    Eigen::Vector3f get_color_at(double u, double v) const
+    {
+        if (material)
+            return material->at(u, v);
+
+        return { 0.0, 0.0, 0.0 };
+    }
+
 protected:
     Eigen::Vector3f position;
+
+    std::shared_ptr<Material> material;
 };

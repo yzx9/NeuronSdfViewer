@@ -43,10 +43,15 @@ set(SOURCES
     src/render/accelerate/Bound3.hpp
     src/render/accelerate/Bound3Intersect.hpp
     src/render/accelerate/BVH.hpp
+
+    # render/material
+    src/render/material/Material.hpp
+    src/render/material/MaterialDiffuse.hpp
     
     # utils
     src/utils/debug.hpp
     src/utils/partion.hpp
+    src/utils/random.hpp
 )
 
 # Executable

@@ -16,11 +16,10 @@ public:
     Eigen::Vector3f cast_ray(const Ray &ray) const
     {
         auto intersect = intersect_ray(ray);
-        if (intersect.happend)
-            return {1.0f, 1.0f, 1.0f};
+        if (!intersect.happend)
+            return {0.0f, 0.0f, 0.0f};
 
-        // TODO: Material
-        return {0.0f, 0.0f, 0.0f};
+        return intersect.color;
     };
 
     void add(std::unique_ptr<Object> obj) {

@@ -26,7 +26,7 @@ public:
         {
             auto dis = sdf(ray(t));
             if (dis < std::numeric_limits<float>::epsilon())
-                return Intersect(t);
+                return Intersect(t, get_color_at(0, 0));
 
             t += dis;
         }
@@ -34,5 +34,6 @@ public:
         return Intersect();
     };
 
+    // Signed Distance Function
     virtual float sdf(const Eigen::Vector3f &position) const = 0;
 };
