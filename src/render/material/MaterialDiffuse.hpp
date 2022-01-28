@@ -10,8 +10,6 @@ class MaterialDiffuse : public Material
 public:
 	MaterialDiffuse(Eigen::Vector3f k_d) : Material(MaterialType::Diffuse), k_d(k_d) {};
 
-	bool has_emission() const override { return false; };
-
     Eigen::Vector3f calc_brdf(Eigen::Vector3f normal, Eigen::Vector3f in, Eigen::Vector3f out) const override
     {
         // calculate the contribution of diffuse model

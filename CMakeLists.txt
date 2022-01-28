@@ -45,6 +45,7 @@ set(SOURCES
     src/render/accelerate/BVH.hpp
 
     # render/material
+    src/render/material/MaterialBase.hpp
     src/render/material/Material.hpp
     src/render/material/MaterialDiffuse.hpp
     
@@ -52,7 +53,7 @@ set(SOURCES
     src/utils/debug.hpp
     src/utils/partion.hpp
     src/utils/random.hpp
-)
+ "src/render/material/light/MaterialLight.hpp" "src/render/material/light/MaterialLightArea.hpp")
 
 # Executable
 add_executable(NueronSdfViewer ${SOURCES})
